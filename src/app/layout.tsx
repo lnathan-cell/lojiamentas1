@@ -4,8 +4,9 @@ import localFont from 'next/font/local';
 import './globals.css';
 import NavBar from '@/components/NavBar/NavBar';
 
+/*Carrega as fontes no projeto com o Next*/
 const audiowide = Audiowide({
-  weight: '400',  
+  weight: '400',
   variable: '--font-audiowide',
   subsets: ['latin'],
 });
@@ -40,7 +41,7 @@ const lufga = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Marichique',
+  title: '',
   description: 'Loja de roupas femininas, masculinas e infantis',
 };
 
@@ -50,8 +51,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='pt-br'>
       <body
+        /*aplicar as fontes no body*/
         className={`${audiowide.variable} ${golostext.variable} ${lufga.variable}`}
       >
         <NavBar />

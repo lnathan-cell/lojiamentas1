@@ -1,106 +1,82 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type NavLink = {
   label: string;
   href: string;
-  dropdown?: { label: string; href: string }[];
 };
 
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Loja', href: '/' },
   { label: 'Blog', href: '/' },
-  {
-    label: 'Produtos',
-    href: '/',
-    dropdown: [
-      { label: 'Roupas', href: '/roupas' },
-      { label: 'Acessórios', href: '/acessorios' },
-    ],
-  },
+  { label: 'Produtos', href: '/' },
   { label: 'Fale Conosco', href: '/' },
 ];
 
 export default function BottomNav() {
-  const [isFixed, setIsFixed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsFixed(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <div
-      className={`w-full bg-white py-6 shadow-sm transition-all duration-500 ${
-        isFixed ? 'fixed-nav fixed left-0 top-0 z-50' : ''
-      }`}
-    >
-      <div className='flex w-full items-center justify-between px-[8%] text-gray-700 lg:px-[16%]'>
+    <div className='w-full border-b border-slate-600 bg-slate-800 py-4'>
+      <div className='flex w-full items-center justify-between px-[8%] text-slate-100 lg:px-[16%]'>
         {/* Logo mobile */}
-        <Link href='/' className='Audiowide text-3xl font-bold lg:hidden'>
-          Mari<span className='text-[var(--second)]'>Chique</span>
+        <Link
+          href='/'
+          className='font-audiowide text-3xl font-bold text-white lg:hidden'
+        >
+          Ferra<span className='text-amber-500'>Mentas</span>
         </Link>
 
-        {/* Menu */}
-        <nav className='hidden space-x-6 lg:flex'>
-          {navLinks.map((link) =>
-            link.dropdown ? (
-              <div key={link.label} className='group relative'>
-                <Link
-                  href={link.href}
-                  className='GolosText flex items-center gap-1 font-bold text-[var(--black)] transition-colors hover:text-[var(--second)]'
-                >
-                  {link.label}
+        {/* Menu desktop */}
+        <nav className='hidden items-center gap-8 lg:flex'>
+          {navLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className='font-golos flex items-center gap-2 font-bold text-slate-100 transition-colors hover:text-amber-500'
+            >
+              <span>{link.label}</span>
+              <span className='text-slate-400'>+</span>
+            </Link>
+          ))}
+        </nav>
 
-                  <Image
-                    src='/Menu-dot.svg'
-                    alt='menu icon'
-                    width={10}
-                    height={10}
-                  />
-                </Link>
+        {/* Mobile */}
+        <button
+          type='button'
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className='text-2xl text-white lg:hidden'
+          aria-label='Abrir menu'
+        >
+          <i className={mobileMenuOpen ? 'ri-close-line' : 'ri-menu-line'}></i>
+        </button>
+      </div>
 
-                {/* Dropdown */}
-                <div className='absolute left-0 top-full hidden min-w-[170px] rounded-lg border border-gray-100 bg-white p-2 shadow-xl group-hover:block'>
-                  {link.dropdown.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className='GolosText block px-4 py-3 font-bold text-[var(--black)] transition-colors hover:bg-[var(--prim-light)] hover:text-[var(--second)]'
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
+      {/* Menu mobile */}
+      {mobileMenuOpen && (
+        <div className='mt-3 border-t border-slate-700 bg-slate-800 lg:hidden'>
+          <nav className='flex flex-col px-[6%] py-4'>
+            {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className='GolosText flex items-center gap-1 font-bold text-[var(--black)] transition-colors hover:text-[var(--second)]'
+                onClick={closeMobileMenu}
+                className='font-golos flex items-center justify-between border-b border-slate-700 px-2 py-3 font-semibold text-slate-100 transition-colors hover:text-amber-500'
               >
-                {link.label}
-
-                <Image
-                  src='/Menu-dot.svg'
-                  alt='menu icon'
-                  width={10}
-                  height={10}
-                />
+                <span>{link.label}</span>
+                <span className='text-slate-400'>+</span>
               </Link>
-            ),
-          )}
-        </nav>
-      </div>
+            ))}
+          </nav>
+        </div>
+      )}
     </div>
   );
 }

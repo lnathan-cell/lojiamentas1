@@ -1,40 +1,200 @@
+/* ===== ÍCONES ===== */
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 @import 'remixicon/fonts/remixicon.css';
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* ===== TAILWIND ===== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ===== VARIÁVEIS ===== */
 :root {
-  --prim: #2c373f;
+  /* cores */
+  --prim: #e0f2fe;
   --prim-light: #f8fafc;
-  --second: #fda500;
+  --second: #f3b407;
   --white: #fff;
   --black: #0f172a;
-  --gradient: linear-gradient(90deg, #f9a8d4 0%, #fb923c 100%);
 
-  --GolosText: 'Golos Text', sans-serif;
-  --Audiowide: 'Audiowide', sans-serif;
-  --Lufga: var(--font-lufga);
+  /* gradiente */
+  --gradient: radial-gradient(
+    circle at 40% 18%,
+    rgba(218, 131, 2, 0.849) 0%,
+    rgb(233, 160, 2) 32%,
+    rgb(236, 142, 34) 70%
+  );
 
-  --transitio-regular: 0.3s;
+  /* animações */
+  --transition-regular: 0.3s;
   --transition-slow: 0.6s;
 }
 
-.GolosText {
-  font-family: var(--GolosText);
+/* ===== BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.Audiowide {
-  font-family: var(--Audiowide);
-}
-
-.Lufga {
-  font-family: var(--Lufga), sans-serif;
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  background-color: #fffaf3;
-  overflow-x: hidden !important;
+  font-family: var(--font-lufga), sans-serif;
+  background-color: var(--black);
+  color: var(--prim-light);
   height: 5000px;
+}
+
+/* ===== CLASSES DE FONTE ===== */
+.font-golos {
+  font-family: var(--font-golos-text), sans-serif;
+}
+
+.font-audiowide {
+  font-family: var(--font-audiowide), sans-serif;
+}
+
+.font-lufga {
+  font-family: var(--font-lufga), sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+
+.menu-link a {
+  font-weight: 600;
+  transition: var(--transition-regular);
+}
+
+.menu-link a:hover {
+  color: var(--second);
+}
+
+.fixed-nav {
+  animation: anim-fixed var(--transition-slow) forwards linear;
+  box-shadow: 0 2px 10px rgba(131, 131, 131, 0.6);
+  z-index: 9999;
+}
+
+@keyframes anim-fixed {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== EFEITO HERO ===== */
+.hero-image {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 100%;
+  background: var(--gradient);
+  z-index: 0;
+  border-radius: 125px 30px 30px 30px;
+}
+
+.hero-shape1 {
+  position: absolute;
+  top: 21%;
+  right: 0%;
+  width: 260px;
+  height: 35px;
+  background-image: url('../../public/wave-shape-1.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-shape2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 150px;
+  height: 30px;
+  transform: rotate(180deg);
+  background-image: url('../../public/wave-shape-1.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.border-shap1 {
+  border: 1px solid #dfdfdf;
+  position: absolute;
+  top: 10%;
+  left: -8%;
+  width: 61%;
+  height: 54%;
+  border-radius: 150px 0 0 0;
+  z-index: -1;
+}
+
+.border-shap2 {
+  border: 1px solid #dfdfdf;
+  position: absolute;
+  bottom: -7%;
+  right: 1%;
+  width: 50%;
+  height: 35%;
+  z-index: -1;
+  border-radius: 0 0 50px 0;
+}
+
+.star-shape {
+  position: absolute;
+  top: -2%;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  background-image: url('../../public/hero-shape2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  animation: Anim-rotate 5s infinite forwards linear;
+}
+
+.star-shape2 {
+  position: absolute;
+  top: 40%;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  background-image: url('../../public/hero-shape2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  animation: Anim-rotate 6s infinite forwards linear;
+}
+
+.star-shape3 {
+  position: absolute;
+  top: 75%;
+  left: -12%;
+  width: 70px;
+  height: 70px;
+  background-image: url('../../public/hero-shape2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  animation: Anim-rotate 6s infinite forwards linear;
+}
+
+@keyframes Anim-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }
